@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+- [修复] 关闭 LiteLLM 逐 chunk 的 streaming success logging（本项目未注册 LiteLLM callback，用量统计不受影响），修复 Windows 上每个流式 chunk 新建事件循环与回环 socketpair、全局线程池卡在 `accept()`，导致 CLI 打印「程序执行完成」后进程不退出且额外占用大量 CPU 的问题。
 - [修复] 实时行情基准仅接受同交易日的有效日期；Yahoo 行情使用未复权价格并区分交易日与更新时间，避免除息日涨跌方向错误及误报过期。
 
 - [修复] 盘中及盘后实时行情覆盖前，仅在报价有明确行情交易日证据时将历史 `today` 平移为 `yesterday`；缺少行情时间的港股缓存报价保留原基准，避免涨跌幅、成交量比率及行情快照涨跌额被错误重算（#2517）。
